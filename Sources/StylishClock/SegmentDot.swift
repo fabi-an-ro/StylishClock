@@ -48,8 +48,6 @@ class SegmentDot: UIView {
 
         layer.cornerRadius = layer.bounds.width / 2
     }
-
-    // MARK: - Private
 }
 
 #endif

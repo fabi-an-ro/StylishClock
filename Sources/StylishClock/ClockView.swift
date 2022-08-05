@@ -130,7 +130,7 @@ public class ClockView: UIView {
             let seconds = calendar.component(.second, from: date)
 
             DispatchQueue.main.async {
-                self.clockLabel.text = "\(hour):\(minutes)"
+                self.clockLabel.text = "\(String(format: "%02d", hour)):\(String(format: "%02d", minutes))"
 
                 self.segmentDots.forEach {
                     if $0.key <= seconds {
