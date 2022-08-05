@@ -45,6 +45,8 @@ public class ClockView: UIView {
 
     let dispatchQueue = DispatchQueue(label: "clock", qos: .background, target: .global(qos: .background))
 
+    var timer: Timer?
+
     private lazy var segmentDots: [Int: SegmentDot] = {
         var dots = [Int: SegmentDot]()
 
@@ -122,7 +124,7 @@ public class ClockView: UIView {
     public func start() {
         let calendar = Calendar.current
 
-        let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             let date = Date()
 
             let hour = calendar.component(.hour, from: date)
@@ -142,7 +144,11 @@ public class ClockView: UIView {
             }
         }
 
-        RunLoop.current.add(timer, forMode: .default)
+        RunLoop.current.add(timer!, forMode: .default)
+    }
+
+    public func stop() {
+        timer?.invalidate()
     }
 }
 

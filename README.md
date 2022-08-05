@@ -14,6 +14,11 @@ Start the clock:
 clock.start()
 ```
 
+Stop the clock:
+```swift
+clock.stop()
+```
+
 Change parameters:
 ```swift
 clock.dotDiameter = CGFloat(5) // Changes the diameter of the dots
