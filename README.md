@@ -2,7 +2,7 @@
 
 Just a UIView with a stylish clock in it ;)
 
-## Usage:
+## Usage
 
 Initialize ClockView:
 ```swift
@@ -27,4 +27,14 @@ clock.fontSize = CGFloat(50) // Changes the font size of the time-label
 clock.textColor = UIColor.label // Changes the textcolor of the time-label
 clock.dotsOffColor = UIColor.secondarySystemFill // Changes the color of the dots if in off-state
 clock.dotsOnColor = UIColor.label // Changes the color of the dots if in on-state
+```
+
+## Installation Using Xcode dependency manager
+
+In Xcode: File -> Add Packages
+
+Than paste the github link into the textfield on the top and install the package.
+
+```
+https://github.com/fabi-an-ro/StylishClock
 ```
