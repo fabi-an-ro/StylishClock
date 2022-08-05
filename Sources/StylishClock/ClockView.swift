@@ -88,6 +88,24 @@ public class ClockView: UIView {
         setupSegmentDots()
     }
 
+    // MARK: - Public
+
+    public func start() {
+        let calendar = Calendar.current
+
+        updateClock(with: calendar)
+
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            self.updateClock(with: calendar)
+        }
+
+        RunLoop.current.add(timer!, forMode: .default)
+    }
+
+    public func stop() {
+        timer?.invalidate()
+    }
+
     // MARK: - Private
 
     private func setupView() {
@@ -121,34 +139,24 @@ public class ClockView: UIView {
         }
     }
 
-    public func start() {
-        let calendar = Calendar.current
+    private func updateClock(with calendar: Calendar) {
+        let date = Date()
 
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            let date = Date()
+        let hour = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        let seconds = calendar.component(.second, from: date)
 
-            let hour = calendar.component(.hour, from: date)
-            let minutes = calendar.component(.minute, from: date)
-            let seconds = calendar.component(.second, from: date)
+        DispatchQueue.main.async {
+            self.clockLabel.text = "\(String(format: "%02d", hour)):\(String(format: "%02d", minutes))"
 
-            DispatchQueue.main.async {
-                self.clockLabel.text = "\(String(format: "%02d", hour)):\(String(format: "%02d", minutes))"
-
-                self.segmentDots.forEach {
-                    if $0.key <= seconds {
-                        $0.value.state = .on
-                    } else {
-                        $0.value.state = .off
-                    }
+            self.segmentDots.forEach {
+                if $0.key <= seconds {
+                    $0.value.state = .on
+                } else {
+                    $0.value.state = .off
                 }
             }
         }
-
-        RunLoop.current.add(timer!, forMode: .default)
-    }
-
-    public func stop() {
-        timer?.invalidate()
     }
 }
 
