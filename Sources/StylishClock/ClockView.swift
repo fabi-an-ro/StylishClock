@@ -38,8 +38,6 @@ public class ClockView: UIView {
 
         label.clipsToBounds = true
 
-        label.text = "-"
-
         return label
     }()
 
