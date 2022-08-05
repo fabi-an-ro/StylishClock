@@ -13,4 +13,6 @@ Change parameters:
 ```swift
 clock.dotDiameter = CGFloat(5)
 clock.fontSize = CGFloat(50)
+
+clock.textColor = UIColor.label
 ```

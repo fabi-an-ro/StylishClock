@@ -21,6 +21,12 @@ public class ClockView: UIView {
         }
     }
 
+    public var textColor: UIColor = UIColor.label {
+        didSet {
+            clockLabel.textColor = textColor
+        }
+    }
+
     let dispatchQueue = DispatchQueue(label: "clock", qos: .background, target: .global(qos: .background))
 
     private lazy var segmentDots: [Int: SegmentDot] = {
@@ -38,7 +44,7 @@ public class ClockView: UIView {
 
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        label.textColor = .label
+        label.textColor = textColor
         label.font = UIFont.systemFont(ofSize: fontSize)
 
         label.clipsToBounds = true
