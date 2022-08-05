@@ -43,11 +43,11 @@ public class ClockView: UIView {
 
     // MARK: - Init
 
-    convenience init(dotDiameter: CGFloat, fontSize: CGFloat) {
-        self.init(frame: CGRect.zero)
-        
+    required init(dotDiameter: CGFloat, fontSize: CGFloat) {
         self.dotDiameter = dotDiameter
         self.fontSize = fontSize
+
+        super.init(frame: .zero)
     }
 
     override init(frame: CGRect) {
