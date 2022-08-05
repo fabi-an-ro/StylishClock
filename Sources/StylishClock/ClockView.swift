@@ -91,6 +91,10 @@ public class ClockView: UIView {
     // MARK: - Public
 
     public func start() {
+        if let timer = timer, timer.isValid {
+            return
+        }
+
         let calendar = Calendar.current
 
         updateClock(with: calendar)
@@ -103,7 +107,9 @@ public class ClockView: UIView {
     }
 
     public func stop() {
-        timer?.invalidate()
+        if let timer = timer, timer.isValid {
+            timer.invalidate()
+        }
     }
 
     // MARK: - Private
