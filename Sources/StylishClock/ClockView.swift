@@ -27,6 +27,22 @@ public class ClockView: UIView {
         }
     }
 
+    public var dotsOffColor: UIColor = UIColor.secondarySystemBackground {
+        didSet {
+            segmentDots.forEach {
+                $0.value.offColor = dotsOffColor
+            }
+        }
+    }
+
+    public var dotsOnColor: UIColor = UIColor.label {
+        didSet {
+            segmentDots.forEach {
+                $0.value.onColor = dotsOnColor
+            }
+        }
+    }
+
     let dispatchQueue = DispatchQueue(label: "clock", qos: .background, target: .global(qos: .background))
 
     private lazy var segmentDots: [Int: SegmentDot] = {

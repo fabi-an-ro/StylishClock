@@ -17,13 +17,16 @@ enum SegmentState {
 class SegmentDot: UIView {
     // MARK: - Properties
 
+    var onColor: UIColor = .label
+    var offColor: UIColor = .secondarySystemBackground
+
     var state: SegmentState = .off {
         didSet {
             switch state {
             case .off:
-                self.backgroundColor = .secondarySystemBackground
+                self.backgroundColor = offColor
             case .on:
-                self.backgroundColor = .label
+                self.backgroundColor = onColor
             }
         }
     }

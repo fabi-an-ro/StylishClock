@@ -11,8 +11,10 @@ let clock = ClockView()
 
 Change parameters:
 ```swift
-clock.dotDiameter = CGFloat(5)
-clock.fontSize = CGFloat(50)
+clock.dotDiameter = CGFloat(5) // Changes the diameter of the dots
+clock.fontSize = CGFloat(50) // Changes the font size of the time-label
 
-clock.textColor = UIColor.label
+clock.textColor = UIColor.label // Changes the textcolor of the time-label
+clock.dotsOffColor = UIColor.secondarySystemFill // Changes the color of the dots if in off-state
+clock.dotsOnColor = UIColor.label // Changes the color of the dots if in on-state
 ```
