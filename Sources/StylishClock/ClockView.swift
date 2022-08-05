@@ -14,7 +14,12 @@ public class ClockView: UIView {
     // MARK: - Properties
 
     public var dotDiameter: CGFloat = 5.0
-    public var fontSize: CGFloat = 50.0
+
+    public var fontSize: CGFloat = 50.0 {
+        didSet {
+            clockLabel.font = UIFont.systemFont(ofSize: fontSize)
+        }
+    }
 
     let dispatchQueue = DispatchQueue(label: "clock", qos: .background, target: .global(qos: .background))
 
