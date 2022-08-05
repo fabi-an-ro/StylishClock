@@ -13,8 +13,8 @@ import UIKit
 public class ClockView: UIView {
     // MARK: - Properties
 
-    let dotDiameter: CGFloat = 5.0
-    let fontSize: CGFloat = 50.0
+    public var dotDiameter: CGFloat = 5.0
+    public var fontSize: CGFloat = 50.0
 
     let dispatchQueue = DispatchQueue(label: "clock", qos: .background, target: .global(qos: .background))
 
@@ -42,6 +42,13 @@ public class ClockView: UIView {
     }()
 
     // MARK: - Init
+
+    init(dotDiameter: CGFloat, fontSize: CGFloat, frame: CGRect) {
+        self.dotDiameter = dotDiameter
+        self.fontSize = fontSize
+
+        super.init(frame: frame)
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -79,15 +86,15 @@ public class ClockView: UIView {
             let angle = range.lowerBound + CGFloat(idx) / CGFloat(60) * (range.upperBound - range.lowerBound)
             let offset = CGPoint(x: radius * cos(angle), y: radius * sin(angle))
 
-            segmentDots[idx]!.translatesAutoresizingMaskIntoConstraints = false // swiftlint:disable:this force_unwrapping
+            segmentDots[idx]!.translatesAutoresizingMaskIntoConstraints = false
 
-            addSubview(segmentDots[idx]!) // swiftlint:disable:this force_unwrapping
+            addSubview(segmentDots[idx]!)
 
             NSLayoutConstraint.activate([
-                segmentDots[idx]!.centerXAnchor.constraint(equalTo: centerXAnchor, constant: offset.x), // swiftlint:disable:this force_unwrapping
-                segmentDots[idx]!.centerYAnchor.constraint(equalTo: centerYAnchor, constant: offset.y), // swiftlint:disable:this force_unwrapping
-                segmentDots[idx]!.heightAnchor.constraint(equalToConstant: dotDiameter), // swiftlint:disable:this force_unwrapping
-                segmentDots[idx]!.widthAnchor.constraint(equalToConstant: dotDiameter) // swiftlint:disable:this force_unwrapping
+                segmentDots[idx]!.centerXAnchor.constraint(equalTo: centerXAnchor, constant: offset.x),
+                segmentDots[idx]!.centerYAnchor.constraint(equalTo: centerYAnchor, constant: offset.y),
+                segmentDots[idx]!.heightAnchor.constraint(equalToConstant: dotDiameter),
+                segmentDots[idx]!.widthAnchor.constraint(equalToConstant: dotDiameter)
             ])
         }
     }
