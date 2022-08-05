@@ -1,3 +1,3 @@
 # StylishClock
 
-A description of this package.
+Just a UIView with a stylish clock in it ;)

@@ -10,7 +10,7 @@
 import UIKit
 
 @available(iOS 13.0, *)
-public class StylishClock: UIView {
+public class ClockView: UIView {
     // MARK: - Properties
 
     let dotDiameter: CGFloat = 5.0
