@@ -9,6 +9,11 @@ Initialize ClockView:
 let clock = ClockView()
 ```
 
+Start the clock:
+```swift
+clock.start()
+```
+
 Change parameters:
 ```swift
 clock.dotDiameter = CGFloat(5) // Changes the diameter of the dots
