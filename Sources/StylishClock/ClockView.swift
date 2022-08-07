@@ -104,8 +104,8 @@ public class ClockView: UIView {
 
     public override func layoutSubviews() {
         super.layoutSubviews()
-
-        setupSegmentDots()
+        
+        setupClockView()
     }
 
     // MARK: - Public
@@ -143,8 +143,10 @@ public class ClockView: UIView {
         ])
     }
 
-    private func setupSegmentDots() {
+    private func setupClockView() {
         let diameter: CGFloat = min(layer.bounds.height, layer.bounds.width)
+        
+        font = UIFont.systemFont(ofSize: diameter * 0.3)
         
         dotDiameter = diameter * 0.03
         
