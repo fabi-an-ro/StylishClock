@@ -81,16 +81,20 @@ public class ClockView: UIView {
         
         super.init(frame: .zero)
     }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        setupView()
-    }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//
+//        setupView()
+//    }
+
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
 
     public override func layoutSubviews() {
         super.layoutSubviews()
