@@ -76,7 +76,7 @@ public class ClockView: UIView {
 
     // MARK: - Init
     
-    init(dotDiameter: CGFloat) {
+    public init(dotDiameter: CGFloat) {
         self.dotDiameter = dotDiameter
         
         super.init(frame: .zero)
