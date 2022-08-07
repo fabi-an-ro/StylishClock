@@ -9,5 +9,5 @@ import Foundation
 
 public enum TimeFormat: String {
     case twentyfourHours = "HH:mm"
-    case twelveHours = "hh:mm\na"
+    case twelveHours = "hh:mm"
 }

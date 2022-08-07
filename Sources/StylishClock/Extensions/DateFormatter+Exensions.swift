@@ -8,10 +8,10 @@
 import Foundation
 
 extension DateFormatter {
-    func string(from date: Date, with format: TimeFormat) -> String {
+    func string(from date: Date, with format: String) -> String {
         let formatter = DateFormatter()
         
-        formatter.dateFormat = format.rawValue
+        formatter.dateFormat = format
         
         return formatter.string(from: date)
     }

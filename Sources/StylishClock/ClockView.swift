@@ -69,8 +69,19 @@ public class ClockView: UIView {
         label.font = font
 
         label.textAlignment = .center
-        label.numberOfLines = 0
 
+        return label
+    }()
+    
+    private lazy var amPmLabel: UILabel = {
+        let label = UILabel()
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        label.textColor = textColor
+        
+        label.textAlignment = .center
+        
         return label
     }()
 
@@ -136,17 +147,23 @@ public class ClockView: UIView {
 
     private func setupView() {
         self.addSubview(clockLabel)
+        self.addSubview(amPmLabel)
 
         NSLayoutConstraint.activate([
             clockLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            clockLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            clockLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            amPmLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            amPmLabel.topAnchor.constraint(equalTo: clockLabel.bottomAnchor, constant: 5.0)
         ])
     }
 
     private func setupClockView() {
         let diameter: CGFloat = min(layer.bounds.height, layer.bounds.width)
         
-        font = UIFont.systemFont(ofSize: diameter * 0.3)
+        let fontSize = diameter * 0.3
+        font = UIFont.systemFont(ofSize: fontSize)
+        amPmLabel.font = UIFont.systemFont(ofSize: fontSize * 0.5)
         
         dotDiameter = diameter * 0.03
         
@@ -176,10 +193,16 @@ public class ClockView: UIView {
 
         let seconds = calendar.component(.second, from: date)
         
-        let timeString = dateFormatter.string(from: date, with: timeFormat)
+        let timeString = dateFormatter.string(from: date, with: timeFormat.rawValue)
+        var amPmString = ""
+        
+        if timeFormat == .twelveHours {
+            amPmString = dateFormatter.string(from: date, with: "a")
+        }
 
         DispatchQueue.main.async {
             self.clockLabel.text = timeString
+            self.amPmLabel.text = amPmString
 
             self.segmentDots.forEach {
                 if $0.key <= seconds {
