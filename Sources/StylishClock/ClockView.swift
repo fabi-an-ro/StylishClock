@@ -20,18 +20,21 @@ public class ClockView: UIView {
         }
     }
 
+    /// UIColor which defines the textColor of the time label.
     public var timeLabelTextColor: UIColor {
         didSet {
             clockLabel.textColor = timeLabelTextColor
         }
     }
     
+    /// UIColor which defines the textColor of the am/pm label
     public var amPmLabelTextColor: UIColor {
         didSet {
             amPmLabel.textColor = amPmLabelTextColor
         }
     }
 
+    /// UIColor which defines the color of the second-dots when in off-state
     public var dotsOffColor: UIColor {
         didSet {
             segmentDots.forEach {
@@ -40,6 +43,7 @@ public class ClockView: UIView {
         }
     }
 
+    /// UIColor which defines the color of the second-dots when in on-state
     public var dotsOnColor: UIColor {
         didSet {
             segmentDots.forEach {
@@ -48,6 +52,7 @@ public class ClockView: UIView {
         }
     }
     
+    /// This variable defines the time format of the clock
     public var timeFormat: TimeFormat = .twentyfourHours
 
     let dispatchQueue = DispatchQueue(label: "clock", qos: .background, target: .global(qos: .background))
@@ -127,6 +132,7 @@ public class ClockView: UIView {
 
     // MARK: - Public
 
+    /// Start the clock
     public func start() {
         if let timer = timer, timer.isValid {
             return
@@ -143,6 +149,7 @@ public class ClockView: UIView {
         RunLoop.current.add(timer!, forMode: .default)
     }
 
+    /// Stop the clock
     public func stop() {
         if let timer = timer, timer.isValid {
             timer.invalidate()
