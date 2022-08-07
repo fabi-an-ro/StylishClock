@@ -1,6 +1,5 @@
 //
 //  ClockView.swift
-//  Clock
 //
 //  Created by Fabian Rottensteiner on 04.08.22.
 //
@@ -13,21 +12,27 @@ import UIKit
 public class ClockView: UIView {
     // MARK: - Properties
 
-    public var dotDiameter: CGFloat = 5.0
+    private var dotDiameter: CGFloat?
 
-    public var fontSize: CGFloat = 50.0 {
+    private var font: UIFont? {
         didSet {
-            clockLabel.font = UIFont.systemFont(ofSize: fontSize)
+            clockLabel.font = font
         }
     }
 
-    public var textColor: UIColor = UIColor.label {
+    public var timeLabelTextColor: UIColor {
         didSet {
-            clockLabel.textColor = textColor
+            clockLabel.textColor = timeLabelTextColor
+        }
+    }
+    
+    public var amPmLabelTextColor: UIColor {
+        didSet {
+            amPmLabel.textColor = amPmLabelTextColor
         }
     }
 
-    public var dotsOffColor: UIColor = UIColor.secondarySystemBackground {
+    public var dotsOffColor: UIColor {
         didSet {
             segmentDots.forEach {
                 $0.value.offColor = dotsOffColor
@@ -35,15 +40,19 @@ public class ClockView: UIView {
         }
     }
 
-    public var dotsOnColor: UIColor = UIColor.label {
+    public var dotsOnColor: UIColor {
         didSet {
             segmentDots.forEach {
                 $0.value.onColor = dotsOnColor
             }
         }
     }
+    
+    public var timeFormat: TimeFormat = .twentyfourHours
 
     let dispatchQueue = DispatchQueue(label: "clock", qos: .background, target: .global(qos: .background))
+    
+    let dateFormatter = DateFormatter()
 
     var timer: Timer?
 
@@ -51,7 +60,7 @@ public class ClockView: UIView {
         var dots = [Int: SegmentDot]()
 
         for i in 0..<60 {
-            dots[i] = SegmentDot()
+            dots[i] = SegmentDot(onColor: dotsOnColor, offColor: dotsOffColor)
         }
 
         return dots
@@ -62,30 +71,58 @@ public class ClockView: UIView {
 
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        label.textColor = textColor
-        label.font = UIFont.systemFont(ofSize: fontSize)
+        label.textColor = timeLabelTextColor
+        label.font = font
 
-        label.clipsToBounds = true
+        label.textAlignment = .center
 
+        return label
+    }()
+    
+    private lazy var amPmLabel: UILabel = {
+        let label = UILabel()
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        label.textColor = amPmLabelTextColor
+        
+        label.textAlignment = .center
+        
         return label
     }()
 
     // MARK: - Init
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
+    
+    public convenience init(timeFormat: TimeFormat) {
+        self.init(timeFormat: timeFormat,
+                  timeLabelTextColor: .label,
+                  amPmLabelTextColor: .secondaryLabel,
+                  dotsOffColor: .secondarySystemBackground,
+                  dotsOnColor: .label)
+    }
+    
+    public init(timeFormat: TimeFormat, timeLabelTextColor: UIColor?, amPmLabelTextColor: UIColor?, dotsOffColor: UIColor?, dotsOnColor: UIColor?) {
+        self.timeFormat = timeFormat
+        self.timeLabelTextColor = timeLabelTextColor ?? .label
+        self.amPmLabelTextColor = amPmLabelTextColor ?? .secondaryLabel
+        self.dotsOffColor = dotsOffColor ?? .secondarySystemBackground
+        self.dotsOnColor = dotsOnColor ?? .label
+        
+        super.init(frame: .zero)
+        
         setupView()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - UIView
 
     public override func layoutSubviews() {
         super.layoutSubviews()
-
-        setupSegmentDots()
+        
+        setupClockView()
     }
 
     // MARK: - Public
@@ -116,15 +153,27 @@ public class ClockView: UIView {
 
     private func setupView() {
         self.addSubview(clockLabel)
+        self.addSubview(amPmLabel)
 
         NSLayoutConstraint.activate([
             clockLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            clockLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            clockLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            amPmLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            amPmLabel.topAnchor.constraint(equalTo: clockLabel.bottomAnchor)
         ])
     }
 
-    private func setupSegmentDots() {
-        let radius: CGFloat = min(layer.bounds.height / 2 - CGFloat(dotDiameter) / 2, layer.bounds.width / 2 - CGFloat(dotDiameter) / 2)
+    private func setupClockView() {
+        let diameter: CGFloat = min(layer.bounds.height, layer.bounds.width)
+        
+        let fontSize = diameter * 0.3
+        font = UIFont.systemFont(ofSize: fontSize)
+        amPmLabel.font = UIFont.systemFont(ofSize: fontSize * 0.5)
+        
+        dotDiameter = diameter * 0.03
+        
+        let radius: CGFloat = diameter / 2 - CGFloat(dotDiameter!) / 2
 
         let range = -CGFloat.pi / 2 ... CGFloat.pi * 1.5
 
@@ -139,8 +188,8 @@ public class ClockView: UIView {
             NSLayoutConstraint.activate([
                 segmentDots[idx]!.centerXAnchor.constraint(equalTo: centerXAnchor, constant: offset.x),
                 segmentDots[idx]!.centerYAnchor.constraint(equalTo: centerYAnchor, constant: offset.y),
-                segmentDots[idx]!.heightAnchor.constraint(equalToConstant: dotDiameter),
-                segmentDots[idx]!.widthAnchor.constraint(equalToConstant: dotDiameter)
+                segmentDots[idx]!.heightAnchor.constraint(equalToConstant: dotDiameter!),
+                segmentDots[idx]!.widthAnchor.constraint(equalToConstant: dotDiameter!)
             ])
         }
     }
@@ -148,12 +197,18 @@ public class ClockView: UIView {
     private func updateClock(with calendar: Calendar) {
         let date = Date()
 
-        let hour = calendar.component(.hour, from: date)
-        let minutes = calendar.component(.minute, from: date)
         let seconds = calendar.component(.second, from: date)
+        
+        let timeString = dateFormatter.string(from: date, with: timeFormat.rawValue)
+        var amPmString = ""
+        
+        if timeFormat == .twelveHours {
+            amPmString = dateFormatter.string(from: date, with: "a")
+        }
 
         DispatchQueue.main.async {
-            self.clockLabel.text = "\(String(format: "%02d", hour)):\(String(format: "%02d", minutes))"
+            self.clockLabel.text = timeString
+            self.amPmLabel.text = amPmString
 
             self.segmentDots.forEach {
                 if $0.key <= seconds {
