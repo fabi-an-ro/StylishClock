@@ -21,7 +21,6 @@ clock.stop()
 
 Change parameters:
 ```swift
-clock.dotDiameter = CGFloat(5) // Changes the diameter of the dots
 clock.fontSize = CGFloat(50) // Changes the font size of the time-label
 
 clock.textColor = UIColor.label // Changes the textcolor of the time-label

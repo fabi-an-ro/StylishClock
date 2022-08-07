@@ -12,9 +12,9 @@ import UIKit
 public class ClockView: UIView {
     // MARK: - Properties
 
-    private var dotDiameter: CGFloat = 5.0
+    private var dotDiameter: CGFloat?
 
-    public var font: UIFont = UIFont.systemFont(ofSize: 50.0) {
+    public var font: UIFont? {
         didSet {
             clockLabel.font = font
         }
@@ -95,13 +95,13 @@ public class ClockView: UIView {
     
     public convenience init(timeFormat: TimeFormat) {
         self.init(timeFormat: timeFormat,
-                  font: UIFont.systemFont(ofSize: 50.0),
+                  font: nil,
                   timeLabelTextColor: .label,
                   dotsOffColor: .secondarySystemBackground,
                   dotsOnColor: .label)
     }
     
-    public init(timeFormat: TimeFormat, font: UIFont, timeLabelTextColor: UIColor, dotsOffColor: UIColor, dotsOnColor: UIColor) {
+    public init(timeFormat: TimeFormat, font: UIFont?, timeLabelTextColor: UIColor, dotsOffColor: UIColor, dotsOnColor: UIColor) {
         self.timeFormat = timeFormat
         self.font = font
         self.timeLabelTextColor = timeLabelTextColor
@@ -173,7 +173,7 @@ public class ClockView: UIView {
         
         dotDiameter = diameter * 0.03
         
-        let radius: CGFloat = diameter / 2 - CGFloat(dotDiameter) / 2
+        let radius: CGFloat = diameter / 2 - CGFloat(dotDiameter!) / 2
 
         let range = -CGFloat.pi / 2 ... CGFloat.pi * 1.5
 
@@ -188,8 +188,8 @@ public class ClockView: UIView {
             NSLayoutConstraint.activate([
                 segmentDots[idx]!.centerXAnchor.constraint(equalTo: centerXAnchor, constant: offset.x),
                 segmentDots[idx]!.centerYAnchor.constraint(equalTo: centerYAnchor, constant: offset.y),
-                segmentDots[idx]!.heightAnchor.constraint(equalToConstant: dotDiameter),
-                segmentDots[idx]!.widthAnchor.constraint(equalToConstant: dotDiameter)
+                segmentDots[idx]!.heightAnchor.constraint(equalToConstant: dotDiameter!),
+                segmentDots[idx]!.widthAnchor.constraint(equalToConstant: dotDiameter!)
             ])
         }
     }
