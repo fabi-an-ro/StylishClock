@@ -146,7 +146,7 @@ public class ClockView: UIView {
     private func setupSegmentDots() {
         let diameter: CGFloat = min(layer.bounds.height, layer.bounds.width)
         
-        dotDiameter = diameter * 0.05
+        dotDiameter = diameter * 0.03
         
         let radius: CGFloat = diameter / 2 - CGFloat(dotDiameter) / 2
 
