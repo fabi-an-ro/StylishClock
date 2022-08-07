@@ -1,6 +1,11 @@
 # StylishClock
 
-Just a UIView with a stylish clock in it ;)
+The pictures are speaking for themselves I think ;)
+
+![Twentyfour hours format](Images/twentyfourHours.png)
+![Twelve hours format](Images/twelveHours.png)
+![Clock with different colors](Images/colors.png)
+![Clock in darkmode](Images/darkmode.png)
 
 ## Usage
 
