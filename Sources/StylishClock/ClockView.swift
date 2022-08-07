@@ -20,19 +20,19 @@ public class ClockView: UIView {
         }
     }
 
-    public var timeLabelTextColor: UIColor = UIColor.label {
+    public var timeLabelTextColor: UIColor {
         didSet {
             clockLabel.textColor = timeLabelTextColor
         }
     }
     
-    public var amPmLabelTextColor: UIColor = UIColor.secondaryLabel {
+    public var amPmLabelTextColor: UIColor {
         didSet {
             amPmLabel.textColor = amPmLabelTextColor
         }
     }
 
-    public var dotsOffColor: UIColor = UIColor.secondarySystemBackground {
+    public var dotsOffColor: UIColor {
         didSet {
             segmentDots.forEach {
                 $0.value.offColor = dotsOffColor
@@ -40,7 +40,7 @@ public class ClockView: UIView {
         }
     }
 
-    public var dotsOnColor: UIColor = UIColor.label {
+    public var dotsOnColor: UIColor {
         didSet {
             segmentDots.forEach {
                 $0.value.onColor = dotsOnColor
@@ -97,16 +97,18 @@ public class ClockView: UIView {
         self.init(timeFormat: timeFormat,
                   font: nil,
                   timeLabelTextColor: .label,
+                  amPmLabelTextColor: .secondaryLabel,
                   dotsOffColor: .secondarySystemBackground,
                   dotsOnColor: .label)
     }
     
-    public init(timeFormat: TimeFormat, font: UIFont?, timeLabelTextColor: UIColor, dotsOffColor: UIColor, dotsOnColor: UIColor) {
+    public init(timeFormat: TimeFormat, font: UIFont?, timeLabelTextColor: UIColor?, amPmLabelTextColor: UIColor?, dotsOffColor: UIColor?, dotsOnColor: UIColor?) {
         self.timeFormat = timeFormat
         self.font = font
-        self.timeLabelTextColor = timeLabelTextColor
-        self.dotsOffColor = dotsOffColor
-        self.dotsOnColor = dotsOnColor
+        self.timeLabelTextColor = timeLabelTextColor ?? .label
+        self.amPmLabelTextColor = amPmLabelTextColor ?? .secondaryLabel
+        self.dotsOffColor = dotsOffColor ?? .secondarySystemBackground
+        self.dotsOnColor = dotsOnColor ?? .label
         
         super.init(frame: .zero)
         
