@@ -14,9 +14,9 @@ public class ClockView: UIView {
 
     private var dotDiameter: CGFloat = 5.0
 
-    public var fontSize: CGFloat = 50.0 {
+    public var font: UIFont = UIFont.systemFont(ofSize: 50.0) {
         didSet {
-            clockLabel.font = UIFont.systemFont(ofSize: fontSize)
+            clockLabel.font = font
         }
     }
 
@@ -66,7 +66,7 @@ public class ClockView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
 
         label.textColor = textColor
-        label.font = UIFont.systemFont(ofSize: fontSize)
+        label.font = font
 
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -76,25 +76,31 @@ public class ClockView: UIView {
 
     // MARK: - Init
     
-    public init(dotDiameter: CGFloat) {
-        self.dotDiameter = dotDiameter
+    public convenience init(timeFormat: TimeFormat) {
+        self.init(timeFormat: timeFormat,
+                  font: UIFont.systemFont(ofSize: 50.0),
+                  textColor: .label,
+                  dotsOffColor: .secondarySystemBackground,
+                  dotsOnColor: .label)
+    }
+    
+    public init(timeFormat: TimeFormat, font: UIFont, textColor: UIColor, dotsOffColor: UIColor, dotsOnColor: UIColor) {
+        self.timeFormat = timeFormat
+        self.font = font
+        self.textColor = textColor
+        self.dotsOffColor = dotsOffColor
+        self.dotsOnColor = dotsOnColor
         
         super.init(frame: .zero)
+        
+        setupView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//
-//        setupView()
-//    }
-
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    // MARK: - UIView
 
     public override func layoutSubviews() {
         super.layoutSubviews()
@@ -138,7 +144,11 @@ public class ClockView: UIView {
     }
 
     private func setupSegmentDots() {
-        let radius: CGFloat = min(layer.bounds.height, layer.bounds.width) / 2 - CGFloat(dotDiameter) / 2
+        let diameter: CGFloat = min(layer.bounds.height, layer.bounds.width)
+        
+        dotDiameter = diameter * 0.05
+        
+        let radius: CGFloat = diameter / 2 - CGFloat(dotDiameter) / 2
 
         let range = -CGFloat.pi / 2 ... CGFloat.pi * 1.5
 
