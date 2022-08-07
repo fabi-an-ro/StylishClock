@@ -160,7 +160,7 @@ public class ClockView: UIView {
             clockLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             amPmLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            amPmLabel.topAnchor.constraint(equalTo: clockLabel.bottomAnchor, constant: 3.0)
+            amPmLabel.topAnchor.constraint(equalTo: clockLabel.bottomAnchor)
         ])
     }
 
