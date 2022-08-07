@@ -14,7 +14,7 @@ public class ClockView: UIView {
 
     private var dotDiameter: CGFloat?
 
-    public var font: UIFont? {
+    private var font: UIFont? {
         didSet {
             clockLabel.font = font
         }
@@ -95,16 +95,14 @@ public class ClockView: UIView {
     
     public convenience init(timeFormat: TimeFormat) {
         self.init(timeFormat: timeFormat,
-                  font: nil,
                   timeLabelTextColor: .label,
                   amPmLabelTextColor: .secondaryLabel,
                   dotsOffColor: .secondarySystemBackground,
                   dotsOnColor: .label)
     }
     
-    public init(timeFormat: TimeFormat, font: UIFont?, timeLabelTextColor: UIColor?, amPmLabelTextColor: UIColor?, dotsOffColor: UIColor?, dotsOnColor: UIColor?) {
+    public init(timeFormat: TimeFormat, timeLabelTextColor: UIColor?, amPmLabelTextColor: UIColor?, dotsOffColor: UIColor?, dotsOnColor: UIColor?) {
         self.timeFormat = timeFormat
-        self.font = font
         self.timeLabelTextColor = timeLabelTextColor ?? .label
         self.amPmLabelTextColor = amPmLabelTextColor ?? .secondaryLabel
         self.dotsOffColor = dotsOffColor ?? .secondarySystemBackground
