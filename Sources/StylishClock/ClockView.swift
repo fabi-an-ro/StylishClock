@@ -60,7 +60,7 @@ public class ClockView: UIView {
         var dots = [Int: SegmentDot]()
 
         for i in 0..<60 {
-            dots[i] = SegmentDot()
+            dots[i] = SegmentDot(onColor: dotsOnColor, offColor: dotsOffColor)
         }
 
         return dots
