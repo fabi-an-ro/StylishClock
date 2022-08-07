@@ -1,6 +1,5 @@
 //
 //  SegmentDot.swift
-//  Clock
 //
 //  Created by Fabian Rottensteiner on 04.08.22.
 //
@@ -17,8 +16,8 @@ enum SegmentState {
 class SegmentDot: UIView {
     // MARK: - Properties
 
-    var onColor: UIColor = .label
-    var offColor: UIColor = .secondarySystemBackground
+    var onColor: UIColor
+    var offColor: UIColor
 
     var state: SegmentState = .off {
         didSet {
@@ -32,11 +31,14 @@ class SegmentDot: UIView {
     }
 
     // MARK: - Init
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        self.backgroundColor = .secondarySystemBackground
+    
+    init(onColor: UIColor, offColor: UIColor) {
+        self.onColor = onColor
+        self.offColor = offColor
+        
+        super.init(frame: .zero)
+        
+        self.backgroundColor = offColor
     }
 
     required init?(coder: NSCoder) {

@@ -1,12 +1,23 @@
 # StylishClock
 
-Just a UIView with a stylish clock in it ;)
+The pictures are speaking for themselves I think ;)
+
+![Twentyfour hours format](Images/twentyfourHours.png)
+![Twelve hours format](Images/twelveHours.png)
+![Clock with different colors](Images/colors.png)
+![Clock in darkmode](Images/darkmode.png)
 
 ## Usage
 
 Initialize ClockView:
 ```swift
-let clock = ClockView()
+let clock = ClockView(timeFormat: TimeFormat)
+
+let clock = ClockView(timeFormat: TimeFormat,
+                      timeLabelTextColor: UIColor?, 
+                      amPmLabelTextColor: UIColor?, 
+                      dotsOffColor: UIColor?, 
+                      dotsOnColor: UIColor?)
 ```
 
 Start the clock:
@@ -21,12 +32,21 @@ clock.stop()
 
 Change parameters:
 ```swift
-clock.dotDiameter = CGFloat(5) // Changes the diameter of the dots
-clock.fontSize = CGFloat(50) // Changes the font size of the time-label
+clock.timeLabelTextColor = UIColor
+clock.amPmLabelTextColor = UIColor // Only visible in twelveHours TimeFormat
+clock.dotsOffColor = UIColor
+clock.dotsOnColor = UIColor
+clock.timeFormat = TimeFormat
+```
 
-clock.textColor = UIColor.label // Changes the textcolor of the time-label
-clock.dotsOffColor = UIColor.secondarySystemFill // Changes the color of the dots if in off-state
-clock.dotsOnColor = UIColor.label // Changes the color of the dots if in on-state
+## TimeFormat enum
+
+Definition:
+```swift
+enum TimeFormat {
+    case twentyfourHours
+    case twelveHours
+}
 ```
 
 ## Installation Using Xcode dependency manager
