@@ -20,9 +20,15 @@ public class ClockView: UIView {
         }
     }
 
-    public var textColor: UIColor = UIColor.label {
+    public var timeLabelTextColor: UIColor = UIColor.label {
         didSet {
-            clockLabel.textColor = textColor
+            clockLabel.textColor = timeLabelTextColor
+        }
+    }
+    
+    public var amPmLabelTextColor: UIColor = UIColor.secondaryLabel {
+        didSet {
+            amPmLabel.textColor = amPmLabelTextColor
         }
     }
 
@@ -65,7 +71,7 @@ public class ClockView: UIView {
 
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        label.textColor = textColor
+        label.textColor = timeLabelTextColor
         label.font = font
 
         label.textAlignment = .center
@@ -78,7 +84,7 @@ public class ClockView: UIView {
         
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.textColor = textColor
+        label.textColor = amPmLabelTextColor
         
         label.textAlignment = .center
         
@@ -90,15 +96,15 @@ public class ClockView: UIView {
     public convenience init(timeFormat: TimeFormat) {
         self.init(timeFormat: timeFormat,
                   font: UIFont.systemFont(ofSize: 50.0),
-                  textColor: .label,
+                  timeLabelTextColor: .label,
                   dotsOffColor: .secondarySystemBackground,
                   dotsOnColor: .label)
     }
     
-    public init(timeFormat: TimeFormat, font: UIFont, textColor: UIColor, dotsOffColor: UIColor, dotsOnColor: UIColor) {
+    public init(timeFormat: TimeFormat, font: UIFont, timeLabelTextColor: UIColor, dotsOffColor: UIColor, dotsOnColor: UIColor) {
         self.timeFormat = timeFormat
         self.font = font
-        self.textColor = textColor
+        self.timeLabelTextColor = timeLabelTextColor
         self.dotsOffColor = dotsOffColor
         self.dotsOnColor = dotsOnColor
         
