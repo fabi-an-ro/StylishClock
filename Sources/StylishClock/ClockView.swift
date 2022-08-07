@@ -1,6 +1,5 @@
 //
 //  ClockView.swift
-//  Clock
 //
 //  Created by Fabian Rottensteiner on 04.08.22.
 //
@@ -42,8 +41,12 @@ public class ClockView: UIView {
             }
         }
     }
+    
+    public var timeFormat: TimeFormat = .twentyfourHours
 
     let dispatchQueue = DispatchQueue(label: "clock", qos: .background, target: .global(qos: .background))
+    
+    let dateFormatter = DateFormatter()
 
     var timer: Timer?
 
@@ -65,7 +68,7 @@ public class ClockView: UIView {
         label.textColor = textColor
         label.font = UIFont.systemFont(ofSize: fontSize)
 
-        label.clipsToBounds = true
+        label.textAlignment = .center
 
         return label
     }()
@@ -148,12 +151,12 @@ public class ClockView: UIView {
     private func updateClock(with calendar: Calendar) {
         let date = Date()
 
-        let hour = calendar.component(.hour, from: date)
-        let minutes = calendar.component(.minute, from: date)
         let seconds = calendar.component(.second, from: date)
+        
+        let timeString = dateFormatter.string(from: date, with: timeFormat)
 
         DispatchQueue.main.async {
-            self.clockLabel.text = "\(String(format: "%02d", hour)):\(String(format: "%02d", minutes))"
+            self.clockLabel.text = timeString
 
             self.segmentDots.forEach {
                 if $0.key <= seconds {

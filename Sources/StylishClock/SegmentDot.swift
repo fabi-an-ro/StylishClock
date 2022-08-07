@@ -1,6 +1,5 @@
 //
 //  SegmentDot.swift
-//  Clock
 //
 //  Created by Fabian Rottensteiner on 04.08.22.
 //
