@@ -69,6 +69,7 @@ public class ClockView: UIView {
         label.font = UIFont.systemFont(ofSize: fontSize)
 
         label.textAlignment = .center
+        label.numberOfLines = 0
 
         return label
     }()
