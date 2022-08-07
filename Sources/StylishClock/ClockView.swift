@@ -12,7 +12,7 @@ import UIKit
 public class ClockView: UIView {
     // MARK: - Properties
 
-    public var dotDiameter: CGFloat = 5.0
+    private var dotDiameter: CGFloat = 5.0
 
     public var fontSize: CGFloat = 50.0 {
         didSet {
@@ -75,6 +75,12 @@ public class ClockView: UIView {
     }()
 
     // MARK: - Init
+    
+    init(dotDiameter: CGFloat) {
+        self.dotDiameter = dotDiameter
+        
+        super.init(frame: .zero)
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -128,7 +134,7 @@ public class ClockView: UIView {
     }
 
     private func setupSegmentDots() {
-        let radius: CGFloat = min(layer.bounds.height / 2 - CGFloat(dotDiameter) / 2, layer.bounds.width / 2 - CGFloat(dotDiameter) / 2)
+        let radius: CGFloat = min(layer.bounds.height, layer.bounds.width) / 2 - CGFloat(dotDiameter) / 2
 
         let range = -CGFloat.pi / 2 ... CGFloat.pi * 1.5
 
