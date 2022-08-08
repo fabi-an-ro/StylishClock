@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// A selection of different time formats for different regions
 public enum TimeFormat: String {
     case twentyfourHours = "HH:mm"
     case twelveHours = "hh:mm"
