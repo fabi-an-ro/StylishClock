@@ -196,7 +196,7 @@ public class ClockView: UIView {
             ])
 
             switch idx {
-            case 0, 4, 9, 14, 19, 24, 29, 34, 39, 44, 49, 54:
+            case 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55:
                 NSLayoutConstraint.activate([
                     dot.heightAnchor.constraint(equalToConstant: dotDiameter! * 1.4),
                     dot.widthAnchor.constraint(equalToConstant: dotDiameter! * 1.4),
