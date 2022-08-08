@@ -4,6 +4,7 @@ The pictures are speaking for themselves I think ;)
 
 ![Twentyfour hours format](Images/twentyfourHours.png)
 ![Twelve hours format](Images/twelveHours.png)
+![With five second dividers](Images/withDividers.png)
 ![Clock with different colors](Images/colors.png)
 ![Clock in darkmode](Images/darkmode.png)
 
@@ -11,9 +12,10 @@ The pictures are speaking for themselves I think ;)
 
 Initialize ClockView:
 ```swift
-let clock = ClockView(timeFormat: TimeFormat)
+let clock = ClockView(timeFormat: TimeFormat, fiveSecondDividers: Bool)
 
 let clock = ClockView(timeFormat: TimeFormat,
+                      fiveSecondDividers: Bool,
                       timeLabelTextColor: UIColor?, 
                       amPmLabelTextColor: UIColor?, 
                       dotsOffColor: UIColor?, 
