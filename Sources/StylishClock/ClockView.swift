@@ -53,7 +53,9 @@ public class ClockView: UIView {
     }
     
     /// This variable defines the time format of the clock
-    public var timeFormat: TimeFormat = .twentyfourHours
+    public var timeFormat: TimeFormat
+
+    private var fiveSecondDivider: Bool
     
     let dateFormatter = DateFormatter()
 
@@ -96,16 +98,18 @@ public class ClockView: UIView {
 
     // MARK: - Init
     
-    public convenience init(timeFormat: TimeFormat) {
+    public convenience init(timeFormat: TimeFormat = .twentyfourHours, fiveSecondDividers: Bool = false) {
         self.init(timeFormat: timeFormat,
+                  fiveSecondDividers: fiveSecondDividers,
                   timeLabelTextColor: .label,
                   amPmLabelTextColor: .secondaryLabel,
                   dotsOffColor: .secondarySystemBackground,
                   dotsOnColor: .label)
     }
     
-    public init(timeFormat: TimeFormat, timeLabelTextColor: UIColor?, amPmLabelTextColor: UIColor?, dotsOffColor: UIColor?, dotsOnColor: UIColor?) {
+    public init(timeFormat: TimeFormat, fiveSecondDividers: Bool, timeLabelTextColor: UIColor?, amPmLabelTextColor: UIColor?, dotsOffColor: UIColor?, dotsOnColor: UIColor?) {
         self.timeFormat = timeFormat
+        self.fiveSecondDivider = fiveSecondDividers
         self.timeLabelTextColor = timeLabelTextColor ?? .label
         self.amPmLabelTextColor = amPmLabelTextColor ?? .secondaryLabel
         self.dotsOffColor = dotsOffColor ?? .secondarySystemBackground
@@ -195,7 +199,13 @@ public class ClockView: UIView {
                 dot.centerYAnchor.constraint(equalTo: centerYAnchor, constant: offset.y)
             ])
 
-            switch idx {
+            setSize(for: dot, with: idx)
+        }
+    }
+
+    private func setSize(for dot: SegmentDot, with index: Int) {
+        if fiveSecondDivider {
+            switch index {
             case 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55:
                 NSLayoutConstraint.activate([
                     dot.heightAnchor.constraint(equalToConstant: dotDiameter! * 1.4),
@@ -207,6 +217,11 @@ public class ClockView: UIView {
                     dot.widthAnchor.constraint(equalToConstant: dotDiameter!)
                 ])
             }
+        } else {
+            NSLayoutConstraint.activate([
+                dot.heightAnchor.constraint(equalToConstant: dotDiameter!),
+                dot.widthAnchor.constraint(equalToConstant: dotDiameter!)
+            ])
         }
     }
 
