@@ -192,10 +192,21 @@ public class ClockView: UIView {
 
             NSLayoutConstraint.activate([
                 dot.centerXAnchor.constraint(equalTo: centerXAnchor, constant: offset.x),
-                dot.centerYAnchor.constraint(equalTo: centerYAnchor, constant: offset.y),
-                dot.heightAnchor.constraint(equalToConstant: dotDiameter!),
-                dot.widthAnchor.constraint(equalToConstant: dotDiameter!)
+                dot.centerYAnchor.constraint(equalTo: centerYAnchor, constant: offset.y)
             ])
+
+            switch idx {
+            case 0, 4, 9, 14, 19, 24, 29, 34, 39, 44, 49, 54:
+                NSLayoutConstraint.activate([
+                    dot.heightAnchor.constraint(equalToConstant: dotDiameter! * 1.2),
+                    dot.widthAnchor.constraint(equalToConstant: dotDiameter! * 1.2),
+                ])
+            default:
+                NSLayoutConstraint.activate([
+                    dot.heightAnchor.constraint(equalToConstant: dotDiameter!),
+                    dot.widthAnchor.constraint(equalToConstant: dotDiameter!)
+                ])
+            }
         }
     }
 
