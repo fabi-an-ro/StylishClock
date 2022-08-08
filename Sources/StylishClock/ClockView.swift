@@ -215,11 +215,13 @@ public class ClockView: UIView {
             self.clockLabel.text = timeString
             self.amPmLabel.text = amPmString
 
-            for (idx, dot) in self.secondDots.enumerated() {
-                if idx <= seconds {
-                    dot.state = .on
-                } else {
-                    dot.state = .off
+            UIView.animate(withDuration: 1, delay: 0) {
+                for (idx, dot) in self.secondDots.enumerated() {
+                    if idx <= seconds {
+                        dot.state = .on
+                    } else {
+                        dot.state = .off
+                    }
                 }
             }
         }
