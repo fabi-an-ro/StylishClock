@@ -62,7 +62,7 @@ public class ClockView: UIView {
     private lazy var secondDots: [SegmentDot] = {
         var dots = [SegmentDot]()
 
-        for i in 0...60 {
+        for i in 0..<60 {
             dots.append(SegmentDot(onColor: dotsOnColor, offColor: dotsOffColor))
         }
 
