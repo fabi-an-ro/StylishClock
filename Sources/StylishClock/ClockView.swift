@@ -34,33 +34,31 @@ public class ClockView: UIView {
 
     public var dotsOffColor: UIColor {
         didSet {
-            segmentDots.forEach {
-                $0.value.offColor = dotsOffColor
+            secondDots.forEach {
+                $0.offColor = dotsOffColor
             }
         }
     }
 
     public var dotsOnColor: UIColor {
         didSet {
-            segmentDots.forEach {
-                $0.value.onColor = dotsOnColor
+            secondDots.forEach {
+                $0.onColor = dotsOnColor
             }
         }
     }
     
     public var timeFormat: TimeFormat = .twentyfourHours
-
-    let dispatchQueue = DispatchQueue(label: "clock", qos: .background, target: .global(qos: .background))
     
     let dateFormatter = DateFormatter()
 
     var timer: Timer?
 
-    private lazy var segmentDots: [Int: SegmentDot] = {
-        var dots = [Int: SegmentDot]()
+    private lazy var secondDots: [SegmentDot] = {
+        var dots = [SegmentDot]()
 
         for i in 0..<60 {
-            dots[i] = SegmentDot(onColor: dotsOnColor, offColor: dotsOffColor)
+            dots.append(SegmentDot(onColor: dotsOnColor, offColor: dotsOffColor))
         }
 
         return dots
@@ -177,19 +175,19 @@ public class ClockView: UIView {
 
         let range = -CGFloat.pi / 2 ... CGFloat.pi * 1.5
 
-        for idx in 0..<60 {
+        for (idx, dot) in secondDots.enumerated() {
             let angle = range.lowerBound + CGFloat(idx) / CGFloat(60) * (range.upperBound - range.lowerBound)
             let offset = CGPoint(x: radius * cos(angle), y: radius * sin(angle))
 
-            segmentDots[idx]!.translatesAutoresizingMaskIntoConstraints = false
+            dot.translatesAutoresizingMaskIntoConstraints = false
 
-            addSubview(segmentDots[idx]!)
+            addSubview(dot)
 
             NSLayoutConstraint.activate([
-                segmentDots[idx]!.centerXAnchor.constraint(equalTo: centerXAnchor, constant: offset.x),
-                segmentDots[idx]!.centerYAnchor.constraint(equalTo: centerYAnchor, constant: offset.y),
-                segmentDots[idx]!.heightAnchor.constraint(equalToConstant: dotDiameter!),
-                segmentDots[idx]!.widthAnchor.constraint(equalToConstant: dotDiameter!)
+                dot.centerXAnchor.constraint(equalTo: centerXAnchor, constant: offset.x),
+                dot.centerYAnchor.constraint(equalTo: centerYAnchor, constant: offset.y),
+                dot.heightAnchor.constraint(equalToConstant: dotDiameter!),
+                dot.widthAnchor.constraint(equalToConstant: dotDiameter!)
             ])
         }
     }
@@ -210,11 +208,11 @@ public class ClockView: UIView {
             self.clockLabel.text = timeString
             self.amPmLabel.text = amPmString
 
-            self.segmentDots.forEach {
-                if $0.key <= seconds {
-                    $0.value.state = .on
+            for (idx, dot) in self.secondDots.enumerated() {
+                if idx <= seconds {
+                    dot.state = .on
                 } else {
-                    $0.value.state = .off
+                    dot.state = .off
                 }
             }
         }

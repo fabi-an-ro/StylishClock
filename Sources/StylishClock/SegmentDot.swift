@@ -45,6 +45,8 @@ class SegmentDot: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - UIView
+
     override func layoutSubviews() {
         super.layoutSubviews()
 
