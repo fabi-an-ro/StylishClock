@@ -62,7 +62,7 @@ public class ClockView: UIView {
     private lazy var secondDots: [SegmentDot] = {
         var dots = [SegmentDot]()
 
-        for i in 0..<60 {
+        for i in 0...60 {
             dots.append(SegmentDot(onColor: dotsOnColor, offColor: dotsOffColor))
         }
 
@@ -198,8 +198,8 @@ public class ClockView: UIView {
             switch idx {
             case 0, 4, 9, 14, 19, 24, 29, 34, 39, 44, 49, 54:
                 NSLayoutConstraint.activate([
-                    dot.heightAnchor.constraint(equalToConstant: dotDiameter! * 1.2),
-                    dot.widthAnchor.constraint(equalToConstant: dotDiameter! * 1.2),
+                    dot.heightAnchor.constraint(equalToConstant: dotDiameter! * 1.4),
+                    dot.widthAnchor.constraint(equalToConstant: dotDiameter! * 1.4),
                 ])
             default:
                 NSLayoutConstraint.activate([
