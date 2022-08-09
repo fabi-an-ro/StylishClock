@@ -8,18 +8,14 @@
 
 import UIKit
 
-enum SegmentState {
-    case on, off
-}
-
 @available(iOS 13.0, *)
-class SegmentDot: UIView {
+class SecondDot: UIView, SecondProtocol {
     // MARK: - Properties
 
     var onColor: UIColor
     var offColor: UIColor
 
-    var state: SegmentState = .off {
+    var state: SecondState = .off {
         didSet {
             switch state {
             case .off:
@@ -32,7 +28,7 @@ class SegmentDot: UIView {
 
     // MARK: - Init
     
-    init(onColor: UIColor, offColor: UIColor) {
+    required init(onColor: UIColor, offColor: UIColor) {
         self.onColor = onColor
         self.offColor = offColor
         

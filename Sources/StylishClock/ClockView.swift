@@ -61,11 +61,11 @@ public class ClockView: UIView {
 
     var timer: Timer?
 
-    private lazy var secondDots: [SegmentDot] = {
-        var dots = [SegmentDot]()
+    private lazy var secondDots: [SecondDot] = {
+        var dots = [SecondDot]()
 
         for i in 0..<60 {
-            dots.append(SegmentDot(onColor: dotsOnColor, offColor: dotsOffColor))
+            dots.append(SecondDot(onColor: dotsOnColor, offColor: dotsOffColor))
         }
 
         return dots
@@ -199,11 +199,11 @@ public class ClockView: UIView {
                 dot.centerYAnchor.constraint(equalTo: centerYAnchor, constant: offset.y)
             ])
 
-            setSize(for: dot, with: idx)
+            setSize(of: dot, with: idx)
         }
     }
 
-    private func setSize(for dot: SegmentDot, with index: Int) {
+    private func setSize(of dot: SecondDot, with index: Int) {
         if fiveSecondDivider {
             switch index {
             case 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55:
