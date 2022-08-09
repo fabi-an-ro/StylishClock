@@ -16,6 +16,8 @@ protocol SecondProtocol {
     var state: SecondState { get set }
 
     init(onColor: UIColor, offColor: UIColor)
+
+    func setupView()
 }
 
 #endif

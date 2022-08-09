@@ -46,6 +46,12 @@ class SecondDot: UIView, SecondProtocol {
     override func layoutSubviews() {
         super.layoutSubviews()
 
+        setupView()
+    }
+
+    // MARK: - Private
+
+    func setupView() {
         layer.cornerRadius = layer.bounds.width / 2
     }
 }
