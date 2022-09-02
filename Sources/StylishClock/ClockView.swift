@@ -147,8 +147,6 @@ public class ClockView: UIView {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             self.updateClock(with: calendar)
         }
-
-        RunLoop.current.add(timer!, forMode: .default)
     }
 
     /// Stop the clock

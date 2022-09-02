@@ -1,5 +1,5 @@
 //
-//  SegmentDot.swift
+//  SecondDot.swift
 //
 //  Created by Fabian Rottensteiner on 04.08.22.
 //
